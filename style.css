@@ -1,0 +1,179 @@
+:root {
+  --table-bg: var(--wp--preset--color--background, #111);
+  --table-text: var(--wp--preset--color--foreground, #f1f1f1);
+  --table-border: var(--wp--preset--color--border, #333);
+  --card-bg: var(--wp--preset--color--secondary, #1a1a1a);
+  --card-text: var(--wp--preset--color--foreground, #f1f1f1);
+  --card-shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* Truncate Utility Classes */
+.truncate-large {
+  display: inline;
+}
+
+.truncate-small {
+  display: none;
+}
+
+/* Events Table Classes */
+
+.events-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: var(--table-bg);
+  color: var(--table-text);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin: 0 auto 1.5rem;
+}
+
+.events-table th,
+.events-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.events-table th {
+  font-weight: bold;
+  background-color: var(--table-border);
+  color: var(--table-text);
+  text-align: center;
+  border-bottom: 0.125rem solid var(--wp--preset--color--accent-2);
+}
+
+.events-table td {
+  border-bottom: 0.0625rem solid var(--table-border);
+}
+
+.events-table tbody tr:nth-child(even) td {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.events-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.event-card {
+  flex: 1 1 300px;
+  border: 1px solid var(--table-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: var(--card-bg);
+  color: var(--card-text);
+  box-shadow: 0 0.125rem 0.25rem var(--card-shadow);
+  margin-bottom: 1rem;
+}
+
+/* Event Card Container */
+.events-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Event Card Styles */
+.event-card {
+    flex: 1 1 300px;
+    border: 1px solid rgba(10, 132, 255, 0.5); /* Semi-transparent accent border */
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Thumbnail image: centered with max-height */
+.event-thumbnail {
+    max-width: 100%;
+    max-height: 300px;
+    display: block;
+    margin: 0 auto 10px;
+    border-radius: 4px;
+}
+
+/* Horizontal dividers styled in accent colour */
+.event-title-divider,
+.event-description-divider {
+    border: none;
+    border-top: 1px solid var(--wp--preset--color--accent-2, #0a84ff);
+    margin: 10px 0;
+}
+
+/* Map preview container (hidden by default) */
+.event-map-preview {
+    display: none;
+    margin-top: 10px;
+}
+
+/* Button Row Container */
+.event-button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: nowrap; /* Prevent wrapping */
+}
+
+/* Styling for each button */
+.event-button {
+    flex: 1;
+    text-align: center;
+    padding: 10px 15px;
+    background-color: var(--wp--preset--color--accent-2, #0a84ff);
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    white-space: nowrap; /* Ensure text stays on one line */
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.event-button:hover {
+    background-color: #0073e6; /* Darken on hover */
+}
+
+/* Inactive button styling */
+.event-button.inactive {
+    background-color: #aaa;
+}
+.event-button.inactive:hover {
+    background-color: #0073e6; /* Darken on hover */
+}
+
+/* Disabled button styling */
+.event-button.disabled,
+.event-button.disabled:hover {
+    background-color: #aaa;
+    pointer-events: none;
+}
+
+/* --- Responsive Styling --- */
+
+/* Breakpoint: max-width 680px and min-width 481px */
+@media screen and (max-width: 840px) and (min-width: 481px) {
+
+}
+
+/* Breakpoint: max-width 480px */
+@media screen and (max-width: 480px) {
+  .events-table th,
+  .events-table td {
+    padding: 0.25rem 0.375rem;
+    font-size: 0.7rem;
+  }
+  .event-card {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Breakpoint: max-width 360px */
+@media screen and (max-width: 360px) {
+  .truncate-large {
+    display: none;
+  }
+  .truncate-small {
+    display: inline;
+  }
+}
