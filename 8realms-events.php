@@ -25,7 +25,7 @@ function events_create_table() {
 
     $sql = "CREATE TABLE $table_name (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
-        thumbnail varchar(255) DEFAULT '',                      -- URL for thumbnail image
+        thumbnail varchar(255) DEFAULT '',                        -- URL for thumbnail image
         event_title varchar(255) NOT NULL,                        -- * Required event title
         start_date date NOT NULL,                                 -- * Required start date
         start_time time DEFAULT NULL,                             -- Optional start time
@@ -34,7 +34,7 @@ function events_create_table() {
         entry_cost varchar(50) DEFAULT '',                        -- Entry cost (as text for flexibility)
         description text NOT NULL,                                -- * Required description (up to 200 words)
         website_link varchar(255) DEFAULT '',                     -- Website link for the event
-        bluesky_link varchar(255) DEFAULT '',                     -- Bluesky link for the event
+        dankhold_link varchar(255) DEFAULT '',                     -- Bluesky link for the event
         PRIMARY KEY (id)
     ) $charset_collate;";
 
@@ -56,6 +56,32 @@ function events_enqueue_styles() {
     wp_enqueue_style( 'events-styles', plugins_url( 'style.css', __FILE__ ) );
 }
 add_action( 'wp_enqueue_scripts', 'events_enqueue_styles' );
+
+/******************************************************************************/
+// Enqueue Block Editor Assets
+/******************************************************************************/
+
+/**
+ * Enqueue block editor assets.
+ *
+ * @return void
+ */
+function events_enqueue_block_editor_assets() {
+    wp_enqueue_script(
+        'events-editor', // Handle.
+        plugins_url('blocks.js', __FILE__), // Block editor script.
+        array('wp-blocks', 'wp-element', 'wp-components', 'wp-editor'), // Dependencies.
+        filemtime(plugin_dir_path(__FILE__) . 'blocks.js') // Version: file modification time.
+    );
+
+    wp_enqueue_style(
+        'events-editor', // Handle.
+        plugins_url('editor.css', __FILE__), // Block editor styles.
+        array('wp-edit-blocks'), // Dependencies.
+        filemtime(plugin_dir_path(__FILE__) . 'editor.css') // Version: file modification time.
+    );
+}
+add_action('enqueue_block_editor_assets', 'events_enqueue_block_editor_assets');
 
 /******************************************************************************/
 /* Include Main Plugin Functionality                                          */

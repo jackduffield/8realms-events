@@ -3,7 +3,7 @@
     var ServerSideRender = components.ServerSideRender;
 
     // Register the Upcoming Events block for Events Display.
-    blocks.registerBlockType('events-display/upcoming-events', {
+    blocks.registerBlockType('events/upcoming-events', {
         title: 'Upcoming Events',
         icon: 'calendar-alt',
         category: 'widgets',

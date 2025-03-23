@@ -236,9 +236,21 @@ function events_scrape() {
         }
 
         /**********************************/
-        /* Bluesky Link is always null    */
+        /* Dankhold Link: from anchor with aria-label "Read More" */
         /**********************************/
-        $bluesky_link = '';
+        $dankhold_link = '';
+        $linkNodes    = $xpath->query( ".//div[contains(@class, 'event-btns')]//a[contains(translate(@aria-label, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'read more')]", $eventDiv );
+        if ( $linkNodes->length > 0 ) {
+            $href = $linkNodes->item(0)->getAttribute( 'href' );
+            if ( strpos( $href, 'external_redirect.php' ) !== false && strpos( $href, '&url=' ) !== false ) {
+                $parts = explode( '&url=', $href );
+                if ( count( $parts ) > 1 ) {
+                    $dankhold_link = urldecode( $parts[1] );
+                }
+            } else {
+                $dankhold_link = $href;
+            }
+        }
 
         /**********************************/
         /* Insert the event               */
@@ -253,7 +265,7 @@ function events_scrape() {
             'entry_cost'   => $entry_cost,
             'description'  => $description,
             'website_link' => $website_link,
-            'bluesky_link' => $bluesky_link,
+            'dankhold_link' => $dankhold_link,
         );
         $format = array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' );
         $insert = $wpdb->insert( $table_name, $data, $format );

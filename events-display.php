@@ -3,7 +3,7 @@
 /******************************************************************************/
 /* BLOCK REGISTRATION                                                         */
 /* -------------------------------------------------------------------------- */
-/* Registers a Gutenberg block "events-display/upcoming-events" for displaying  */
+/* Registers a Gutenberg block "events/upcoming-events" for displaying  */
 /* upcoming events (those with a start date greater than or equal to today)   */
 /* as cards.                                                                  */
 /******************************************************************************/
@@ -14,14 +14,14 @@
  * @return void
  */
 function events_register_blocks() {
-    register_block_type( 'events-display/upcoming-events', array(
-        'editor_script'   => 'events-display-editor',   // Assuming this editor script is enqueued globally
-        'editor_style'    => 'events-display-editor',
+    register_block_type('events/upcoming-events', array(
+        'editor_script'   => 'events-editor',   // Assuming this editor script is enqueued globally
+        'editor_style'    => 'events-editor',
         'style'           => 'events-styles',
         'render_callback' => 'events_upcoming_render_callback',
-    ) );
+    ));
 }
-add_action( 'init', 'events_register_blocks' );
+add_action('init', 'events_register_blocks');
 
 /******************************************************************************/
 /* UPCOMING EVENTS BLOCK RENDER CALLBACK                                      */
@@ -120,6 +120,12 @@ function events_upcoming_render_callback( $attributes ) {
             $output .= '<a href="' . esc_url( $event['website_link'] ) . '" target="_blank" class="event-button">Book Now</a>';
         } else {
             $output .= '<a class="event-button disabled">Book Now</a>';
+        }
+        // "Read More" button: dankhold link.
+        if ( ! empty( $event['dankhold_link'] ) ) {
+            $output .= '<a href="https://615cb23714593.site123.me' . esc_url( $event['dankhold_link'] ) . '" target="_blank" class="event-button">Read More</a>';
+        } else {
+            $output .= '<a class="event-button disabled">Read More</a>';
         }
         // "Plan Journey" button: Opens Google Maps directions.
         $planJourneyUrl = 'https://www.google.com/maps/dir/?api=1&destination=' . urlencode( $event['location'] );
